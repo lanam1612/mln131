@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="min-h-screen bg-bg-cream">
       <Navigation />
-      <main>
+      <main id="main" tabIndex={-1}>
         <HeroSection />
         <TheoryFoundation />
         <Suspense fallback={<MapSectionSkeleton />}>

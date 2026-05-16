@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8F5F0" />
+      <stop offset="100%" stop-color="#FCE4E2" />
+    </linearGradient>
+    <linearGradient id="vn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#DA251D" />
+      <stop offset="100%" stop-color="#9c1812" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Decorative star (Vietnamese flag) -->
+  <g transform="translate(140 90) scale(0.6)">
+    <circle r="58" fill="#DA251D" />
+    <polygon
+      points="0,-32 9.4,-12.8 31,-12.8 13.6,1.6 19.6,22.4 0,11.2 -19.6,22.4 -13.6,1.6 -31,-12.8 -9.4,-12.8"
+      fill="#FFCD00"
+    />
+  </g>
+
+  <text x="90" y="240" font-family="'Be Vietnam Pro', sans-serif" font-size="28" font-weight="600" fill="#DA251D" letter-spacing="0.18em">
+    CHƯƠNG 6 · CNXHKH
+  </text>
+  <text x="90" y="320" font-family="'Be Vietnam Pro', sans-serif" font-size="76" font-weight="800" fill="#0F0F19">
+    Dân tộc &amp; Tôn giáo
+  </text>
+  <text x="90" y="395" font-family="'Be Vietnam Pro', sans-serif" font-size="76" font-weight="800" fill="url(#vn)">
+    Việt Nam
+  </text>
+  <text x="90" y="460" font-family="'Inter', sans-serif" font-size="28" fill="#3F3F46">
+    Bản đồ 3D · 4 vùng · 6 thời kỳ · Quiz 15 câu
+  </text>
+
+  <!-- Stylized Vietnam silhouette (decorative) -->
+  <g transform="translate(820 90)" opacity="0.9">
+    <path
+      d="M180 0 q-25 40 -45 90 q-30 70 -55 130 q-25 70 -40 130 q-15 60 -10 110 q5 60 25 90 q15 22 5 40 q-10 18 -32 22 q-22 4 -8 -18 q14 -22 0 -40 q-22 -28 -38 -82 q-16 -54 -10 -110 q6 -56 26 -110 q22 -56 50 -120 q28 -64 58 -114 q22 -36 38 -50 q14 -12 26 -4 q12 8 10 36 z"
+      fill="#DA251D"
+      stroke="#9c1812"
+      stroke-width="2.5"
+      stroke-linejoin="round"
+    />
+    <!-- 4 region dots -->
+    <circle cx="80" cy="60" r="9" fill="#E63946" stroke="white" stroke-width="3" />
+    <circle cx="138" cy="290" r="9" fill="#264653" stroke="white" stroke-width="3" />
+    <circle cx="118" cy="330" r="9" fill="#F4A261" stroke="white" stroke-width="3" />
+    <circle cx="70" cy="430" r="9" fill="#2A9D8F" stroke="white" stroke-width="3" />
+    <!-- Hoàng Sa / Trường Sa marker -->
+    <circle cx="230" cy="240" r="4" fill="#DA251D" />
+    <circle cx="245" cy="255" r="3" fill="#DA251D" />
+    <circle cx="240" cy="380" r="4" fill="#DA251D" />
+    <circle cx="252" cy="395" r="3" fill="#DA251D" />
+  </g>
+
+  <text x="90" y="585" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" letter-spacing="0.1em">
+    VIETMAP CHRONICLE  ·  NHÓM 5  ·  MLN131
+  </text>
+</svg>

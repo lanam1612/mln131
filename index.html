@@ -4,31 +4,63 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>VietMap Chronicle — Dân tộc &amp; Tôn giáo Việt Nam</title>
     <meta
       name="description"
-      content="VietMap Chronicle — Hành trình Dân tộc và Tôn giáo Việt Nam qua thời gian và không gian. Sản phẩm tương tác môn Chủ nghĩa Xã hội Khoa học."
+      content="VietMap Chronicle — Hành trình tương tác qua 54 dân tộc và 16 tôn giáo Việt Nam: bản đồ 3D 4 vùng trọng điểm, timeline 6 thời kỳ lịch sử và quiz ôn tập. Sản phẩm môn Chủ nghĩa Xã hội Khoa học."
     />
+    <meta
+      name="keywords"
+      content="dân tộc Việt Nam, tôn giáo Việt Nam, chủ nghĩa xã hội khoa học, chương 6, MLN131, bản đồ Việt Nam 3D, 54 dân tộc, 16 tôn giáo"
+    />
+    <meta name="author" content="Nhóm 5 — Lớp MLN131" />
     <meta name="theme-color" content="#DA251D" />
+    <meta name="color-scheme" content="light" />
 
-    <meta property="og:title" content="VietMap Chronicle" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="VietMap Chronicle — Dân tộc &amp; Tôn giáo Việt Nam" />
     <meta
       property="og:description"
-      content="Khám phá 54 dân tộc và 16 tôn giáo Việt Nam qua bản đồ 3D tương tác, timeline lịch sử và quiz."
+      content="Khám phá 54 dân tộc và 16 tôn giáo Việt Nam qua bản đồ 3D tương tác, timeline 6 thời kỳ và quiz 15 câu."
     />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="vi_VN" />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bản đồ Việt Nam 3D với 4 vùng trọng điểm và logo VietMap Chronicle." />
 
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VietMap Chronicle" />
+    <meta
+      name="twitter:description"
+      content="Bản đồ 3D Việt Nam tương tác — 4 vùng, 6 thời kỳ, 15 câu quiz về dân tộc và tôn giáo."
+    />
+    <meta name="twitter:image" content="/og-image.svg" />
+
+    <!-- Performance hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <title>VietMap Chronicle — Dân tộc & Tôn giáo Việt Nam</title>
   </head>
   <body class="bg-bg-cream text-neutral-900 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-brand-red focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white focus:shadow-lg"
+    >
+      Bỏ qua điều hướng &middot; đi tới nội dung chính
+    </a>
     <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; text-align: center; font-family: system-ui">
+        Bạn cần bật JavaScript để xem VietMap Chronicle.
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
