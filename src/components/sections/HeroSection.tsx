@@ -3,10 +3,24 @@ import { LinkButton } from '@/components/ui/Button'
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber'
 import { regions } from '@/data'
 
-// Stylized SVG silhouette path (viewBox 0 0 220 440) — artistic only, not a
-// geographic projection. The real GeoJSON map ships in Phase 4.
+// Stylized SVG silhouette (viewBox 0 0 290 440) — artistic, not a literal
+// projection. The mid-section bulge to the right approximates the Phú Yên /
+// Khánh Hòa coast so the Nam Trung Bộ marker lands on an actual coastline.
+// The full GeoJSON map ships in Phase 4.
 const VN_OUTLINE =
-  'M 105 12 C 78 22, 58 55, 65 95 C 70 130, 92 150, 88 180 C 82 215, 65 240, 80 270 C 95 295, 120 305, 130 330 C 138 355, 128 380, 105 392 C 80 402, 50 395, 42 372 C 36 350, 48 330, 65 318 C 90 300, 95 275, 82 250 C 70 220, 75 190, 90 165 C 102 140, 95 110, 90 80 C 88 50, 95 25, 105 12 Z'
+  'M 105 12 ' +
+  'C 78 22, 58 55, 65 95 ' +
+  'C 70 130, 92 150, 88 180 ' +
+  'C 95 200, 125 215, 130 245 ' +
+  'C 132 260, 115 270, 110 275 ' +
+  'C 100 290, 110 305, 130 330 ' +
+  'C 138 355, 128 380, 105 392 ' +
+  'C 80 402, 50 395, 42 372 ' +
+  'C 36 350, 48 330, 65 318 ' +
+  'C 80 300, 95 290, 95 265 ' +
+  'C 92 240, 85 215, 90 175 ' +
+  'C 95 145, 95 115, 88 80 ' +
+  'C 88 50, 95 25, 105 12 Z'
 
 const STATS = [
   { value: 54, label: 'dân tộc anh em', suffix: '' },
@@ -15,15 +29,35 @@ const STATS = [
 ] as const
 
 // Approximate dot positions for the 4 regions inside the SVG viewBox.
+// Coordinates roughly track latitude (cy) and east/west (cx); Nam Trung Bộ
+// sits on the mid-east bulge, north of Tây Nguyên.
 const REGION_DOTS: Record<
   'taybac' | 'taynguyen' | 'taynambo' | 'namtrungbo',
   { cx: number; cy: number; delay: number }
 > = {
   taybac: { cx: 78, cy: 75, delay: 0 },
-  taynguyen: { cx: 110, cy: 270, delay: 0.4 },
-  taynambo: { cx: 65, cy: 360, delay: 0.8 },
-  namtrungbo: { cx: 128, cy: 305, delay: 1.2 },
+  namtrungbo: { cx: 122, cy: 248, delay: 0.4 },
+  taynguyen: { cx: 90, cy: 285, delay: 0.8 },
+  taynambo: { cx: 65, cy: 365, delay: 1.2 },
 }
+
+// Hoàng Sa & Trường Sa archipelago marker clusters (stylized cluster of
+// small dots in the East Sea, east of the mainland silhouette).
+const HOANG_SA_DOTS: ReadonlyArray<{ cx: number; cy: number; r: number }> = [
+  { cx: 198, cy: 180, r: 2 },
+  { cx: 204, cy: 186, r: 1.8 },
+  { cx: 194, cy: 190, r: 1.6 },
+  { cx: 208, cy: 194, r: 1.6 },
+]
+const TRUONG_SA_DOTS: ReadonlyArray<{ cx: number; cy: number; r: number }> = [
+  { cx: 222, cy: 348, r: 2 },
+  { cx: 230, cy: 354, r: 1.8 },
+  { cx: 216, cy: 358, r: 1.7 },
+  { cx: 236, cy: 362, r: 1.6 },
+  { cx: 225, cy: 366, r: 1.5 },
+  { cx: 244, cy: 370, r: 1.5 },
+  { cx: 220, cy: 374, r: 1.4 },
+]
 
 export function HeroSection() {
   const reduced = useReducedMotion()
@@ -163,9 +197,9 @@ export function HeroSection() {
 function VietnamTeaserMap({ reduced }: { reduced: boolean }) {
   return (
     <svg
-      viewBox="0 0 220 440"
+      viewBox="0 0 290 440"
       role="img"
-      aria-label="Bản đồ Việt Nam stylized với 4 hotspot vùng trọng điểm"
+      aria-label="Bản đồ Việt Nam stylized với 4 hotspot vùng trọng điểm và quần đảo Hoàng Sa, Trường Sa"
       className="h-auto w-full"
     >
       <defs>
@@ -183,6 +217,52 @@ function VietnamTeaserMap({ reduced }: { reduced: boolean }) {
         strokeLinejoin="round"
         opacity="0.92"
       />
+
+      {/* Hoàng Sa archipelago */}
+      <g>
+        {HOANG_SA_DOTS.map((d, i) => (
+          <circle
+            key={`hs-${i}`}
+            cx={d.cx}
+            cy={d.cy}
+            r={d.r}
+            fill="#DA251D"
+          />
+        ))}
+        <text
+          x={195}
+          y={170}
+          className="font-display"
+          fontSize="10"
+          fontWeight="600"
+          fill="#DA251D"
+        >
+          Hoàng Sa
+        </text>
+      </g>
+
+      {/* Trường Sa archipelago */}
+      <g>
+        {TRUONG_SA_DOTS.map((d, i) => (
+          <circle
+            key={`ts-${i}`}
+            cx={d.cx}
+            cy={d.cy}
+            r={d.r}
+            fill="#DA251D"
+          />
+        ))}
+        <text
+          x={216}
+          y={340}
+          className="font-display"
+          fontSize="10"
+          fontWeight="600"
+          fill="#DA251D"
+        >
+          Trường Sa
+        </text>
+      </g>
 
       {regions.map((r) => {
         const dot = REGION_DOTS[r.id]

@@ -83,8 +83,7 @@ export function VietnamMap3D({
       <OrbitControls
         enablePan={false}
         enableZoom={true}
-        autoRotate={!reduced}
-        autoRotateSpeed={0.4}
+        autoRotate={false}
         minPolarAngle={Math.PI / 5}
         maxPolarAngle={Math.PI / 2.4}
         minDistance={9}
