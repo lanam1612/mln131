@@ -1,14 +1,9 @@
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { HeroSection } from '@/components/sections/HeroSection'
+import { TheoryFoundation } from '@/components/sections/TheoryFoundation'
 
 const PLACEHOLDER_SECTIONS = [
-  {
-    id: 'theory',
-    phase: 3,
-    title: 'Nền tảng lý luận',
-    hint: '4 tab: Khái niệm dân tộc · 2 xu hướng · Cương lĩnh Lênin · Nguyên tắc tôn giáo.',
-  },
   {
     id: 'map',
     phase: 4,
@@ -41,6 +36,7 @@ function App() {
       <Navigation />
       <main>
         <HeroSection />
+        <TheoryFoundation />
         {PLACEHOLDER_SECTIONS.map((section) => (
           <section
             key={section.id}
