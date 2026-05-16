@@ -2,25 +2,11 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { LinkButton } from '@/components/ui/Button'
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber'
 import { regions } from '@/data'
-
-// Stylized SVG silhouette (viewBox 0 0 290 440) — artistic, not a literal
-// projection. The mid-section bulge to the right approximates the Phú Yên /
-// Khánh Hòa coast so the Nam Trung Bộ marker lands on an actual coastline.
-// The full GeoJSON map ships in Phase 4.
-const VN_OUTLINE =
-  'M 105 12 ' +
-  'C 78 22, 58 55, 65 95 ' +
-  'C 70 130, 92 150, 88 180 ' +
-  'C 95 200, 125 215, 130 245 ' +
-  'C 132 260, 115 270, 110 275 ' +
-  'C 100 290, 110 305, 130 330 ' +
-  'C 138 355, 128 380, 105 392 ' +
-  'C 80 402, 50 395, 42 372 ' +
-  'C 36 350, 48 330, 65 318 ' +
-  'C 80 300, 95 290, 95 265 ' +
-  'C 92 240, 85 215, 90 175 ' +
-  'C 95 145, 95 115, 88 80 ' +
-  'C 88 50, 95 25, 105 12 Z'
+import {
+  VIETNAM_OUTLINE_PATH,
+  REGION_PROJECTED,
+  ISLAND_PROJECTED,
+} from '@/lib/vietnamSilhouette'
 
 const STATS = [
   { value: 54, label: 'dân tộc anh em', suffix: '' },
@@ -28,35 +14,40 @@ const STATS = [
   { value: 26.5, label: 'triệu tín đồ (~27% dân số)', decimals: 1, suffix: '' },
 ] as const
 
-// Approximate dot positions for the 4 regions inside the SVG viewBox.
-// Coordinates roughly track latitude (cy) and east/west (cx); Nam Trung Bộ
-// sits on the mid-east bulge, north of Tây Nguyên.
+// Dots use the same Mercator projection as the silhouette path, so they land
+// on the real coordinates of each region. `labelSide` lets Tây Nguyên & Nam
+// Trung Bộ — which sit close together — render their labels on opposite
+// sides so they don't overlap.
 const REGION_DOTS: Record<
   'taybac' | 'taynguyen' | 'taynambo' | 'namtrungbo',
-  { cx: number; cy: number; delay: number }
+  { cx: number; cy: number; delay: number; labelSide: 'left' | 'right' }
 > = {
-  taybac: { cx: 78, cy: 75, delay: 0 },
-  namtrungbo: { cx: 122, cy: 248, delay: 0.4 },
-  taynguyen: { cx: 90, cy: 285, delay: 0.8 },
-  taynambo: { cx: 65, cy: 365, delay: 1.2 },
+  taybac: { ...REGION_PROJECTED.taybac, delay: 0, labelSide: 'right' },
+  namtrungbo: {
+    ...REGION_PROJECTED.namtrungbo,
+    delay: 0.4,
+    labelSide: 'right',
+  },
+  taynguyen: { ...REGION_PROJECTED.taynguyen, delay: 0.8, labelSide: 'left' },
+  taynambo: { ...REGION_PROJECTED.taynambo, delay: 1.2, labelSide: 'right' },
 }
 
-// Hoàng Sa & Trường Sa archipelago marker clusters (stylized cluster of
-// small dots in the East Sea, east of the mainland silhouette).
+// Stylized dot clusters scattered around the projected centroids of each
+// archipelago. Full reef geometry renders in the 3D map (Phase 4).
 const HOANG_SA_DOTS: ReadonlyArray<{ cx: number; cy: number; r: number }> = [
-  { cx: 198, cy: 180, r: 2 },
-  { cx: 204, cy: 186, r: 1.8 },
-  { cx: 194, cy: 190, r: 1.6 },
-  { cx: 208, cy: 194, r: 1.6 },
+  { cx: ISLAND_PROJECTED.hoangSa.cx - 6, cy: ISLAND_PROJECTED.hoangSa.cy - 4, r: 2 },
+  { cx: ISLAND_PROJECTED.hoangSa.cx + 2, cy: ISLAND_PROJECTED.hoangSa.cy - 1, r: 1.8 },
+  { cx: ISLAND_PROJECTED.hoangSa.cx - 3, cy: ISLAND_PROJECTED.hoangSa.cy + 5, r: 1.6 },
+  { cx: ISLAND_PROJECTED.hoangSa.cx + 6, cy: ISLAND_PROJECTED.hoangSa.cy + 7, r: 1.6 },
 ]
 const TRUONG_SA_DOTS: ReadonlyArray<{ cx: number; cy: number; r: number }> = [
-  { cx: 222, cy: 348, r: 2 },
-  { cx: 230, cy: 354, r: 1.8 },
-  { cx: 216, cy: 358, r: 1.7 },
-  { cx: 236, cy: 362, r: 1.6 },
-  { cx: 225, cy: 366, r: 1.5 },
-  { cx: 244, cy: 370, r: 1.5 },
-  { cx: 220, cy: 374, r: 1.4 },
+  { cx: ISLAND_PROJECTED.truongSa.cx - 8, cy: ISLAND_PROJECTED.truongSa.cy - 8, r: 2 },
+  { cx: ISLAND_PROJECTED.truongSa.cx, cy: ISLAND_PROJECTED.truongSa.cy - 3, r: 1.8 },
+  { cx: ISLAND_PROJECTED.truongSa.cx + 10, cy: ISLAND_PROJECTED.truongSa.cy + 2, r: 1.7 },
+  { cx: ISLAND_PROJECTED.truongSa.cx - 4, cy: ISLAND_PROJECTED.truongSa.cy + 7, r: 1.6 },
+  { cx: ISLAND_PROJECTED.truongSa.cx + 5, cy: ISLAND_PROJECTED.truongSa.cy + 12, r: 1.5 },
+  { cx: ISLAND_PROJECTED.truongSa.cx - 10, cy: ISLAND_PROJECTED.truongSa.cy + 15, r: 1.4 },
+  { cx: ISLAND_PROJECTED.truongSa.cx + 12, cy: ISLAND_PROJECTED.truongSa.cy + 19, r: 1.5 },
 ]
 
 export function HeroSection() {
@@ -210,11 +201,12 @@ function VietnamTeaserMap({ reduced }: { reduced: boolean }) {
       </defs>
 
       <path
-        d={VN_OUTLINE}
+        d={VIETNAM_OUTLINE_PATH}
         fill="url(#vn-fill)"
         stroke="#DA251D"
-        strokeWidth="1.5"
+        strokeWidth="1.2"
         strokeLinejoin="round"
+        strokeLinecap="round"
         opacity="0.92"
       />
 
@@ -266,6 +258,9 @@ function VietnamTeaserMap({ reduced }: { reduced: boolean }) {
 
       {regions.map((r) => {
         const dot = REGION_DOTS[r.id]
+        const labelLeft = dot.labelSide === 'left'
+        const textX = labelLeft ? dot.cx - 10 : dot.cx + 10
+        const anchor = labelLeft ? 'end' : 'start'
         return (
           <g key={r.id}>
             {!reduced && (
@@ -295,8 +290,9 @@ function VietnamTeaserMap({ reduced }: { reduced: boolean }) {
               strokeWidth="1.5"
             />
             <text
-              x={dot.cx + 10}
+              x={textX}
               y={dot.cy + 4}
+              textAnchor={anchor}
               className="font-display"
               fontSize="11"
               fontWeight="600"
