@@ -5,7 +5,9 @@
       "Bash(npm run *)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git -c user.email=vietmap@local -c 'user.name=VietMap Chronicle' commit -m 'feat\\(phase0\\): project foundation — vite + react 19 + tailwind v4 + ts strict *)"
+      "Bash(git -c user.email=vietmap@local -c 'user.name=VietMap Chronicle' commit -m 'feat\\(phase0\\): project foundation — vite + react 19 + tailwind v4 + ts strict *)",
+      "Bash(npx tsx -e ' *)",
+      "Read(//c/Users/lanha/AppData/Local/Temp/claude/h--MLN131-mln131/aa1e5a11-3b4a-4a8c-87b0-2f1a45d9bc98/tasks/**)"
     ]
   }
 }
