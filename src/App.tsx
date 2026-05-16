@@ -1,15 +1,16 @@
+import { lazy, Suspense } from 'react'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { TheoryFoundation } from '@/components/sections/TheoryFoundation'
 
+const InteractiveMap = lazy(() =>
+  import('@/components/sections/InteractiveMap').then((m) => ({
+    default: m.InteractiveMap,
+  })),
+)
+
 const PLACEHOLDER_SECTIONS = [
-  {
-    id: 'map',
-    phase: 4,
-    title: 'Bản đồ tương tác 4 vùng',
-    hint: 'Bản đồ 3D Việt Nam, 4 hotspot, modal chi tiết. Điểm nhấn sáng tạo.',
-  },
   {
     id: 'timeline',
     phase: 5,
@@ -37,6 +38,9 @@ function App() {
       <main>
         <HeroSection />
         <TheoryFoundation />
+        <Suspense fallback={<MapSectionSkeleton />}>
+          <InteractiveMap />
+        </Suspense>
         {PLACEHOLDER_SECTIONS.map((section) => (
           <section
             key={section.id}
@@ -59,6 +63,24 @@ function App() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+function MapSectionSkeleton() {
+  return (
+    <section
+      id="map"
+      className="border-t border-neutral-200/70 px-6 py-24 md:py-32"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 md:mb-14">
+          <div className="mb-3 h-6 w-40 animate-pulse rounded-full bg-brand-red/10" />
+          <div className="mb-3 h-10 w-80 animate-pulse rounded bg-neutral-200" />
+          <div className="h-5 w-full max-w-xl animate-pulse rounded bg-neutral-200" />
+        </div>
+        <div className="h-[70vh] min-h-[480px] animate-pulse rounded-2xl border border-neutral-200 bg-neutral-100 md:h-[80vh]" />
+      </div>
+    </section>
   )
 }
 

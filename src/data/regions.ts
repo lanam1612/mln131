@@ -97,19 +97,9 @@ export const regions: Region[] = [
         source: 'Wikipedia Commons',
       },
       {
-        src: '/assets/images/regions/taybac-le-hoi-xoe.jpg',
-        alt: 'Lễ hội Xòe Thái',
+        src: '/assets/images/regions/taybac-le-hoi-xoa-thai.jpg',
+        alt: 'Lễ hội Xòe Thái (di sản UNESCO 2021)',
         source: 'Bộ Văn hóa, Thể thao và Du lịch',
-      },
-      {
-        src: '/assets/images/regions/taybac-cho-bac-ha.jpg',
-        alt: 'Chợ phiên Bắc Hà',
-        source: 'Vietnamtourism',
-      },
-      {
-        src: '/assets/images/regions/taybac-bien-phong.jpg',
-        alt: 'Bộ đội biên phòng cõng dân vượt lũ',
-        source: 'Báo Quân đội Nhân dân',
       },
     ],
   },
@@ -214,23 +204,13 @@ export const regions: Region[] = [
     images: [
       {
         src: '/assets/images/regions/taynguyen-cong-chieng.jpg',
-        alt: 'Cồng chiêng Tây Nguyên',
+        alt: 'Cồng chiêng Tây Nguyên (di sản UNESCO 2005)',
         source: 'UNESCO',
       },
       {
-        src: '/assets/images/regions/taynguyen-nha-dai.jpg',
-        alt: 'Nhà dài Ê-đê',
+        src: '/assets/images/regions/taynguyen-nha-dai-e-de.jpg',
+        alt: 'Nhà dài Ê-đê — kiến trúc đặc trưng chế độ mẫu hệ',
         source: 'Bảo tàng Dân tộc học',
-      },
-      {
-        src: '/assets/images/regions/taynguyen-le-bo-ma.jpg',
-        alt: 'Lễ đâm trâu, lễ bỏ mả',
-        source: 'Tư liệu báo chí',
-      },
-      {
-        src: '/assets/images/regions/taynguyen-cu-kuin.jpg',
-        alt: 'Phiên tòa xét xử vụ Cư Kuin',
-        source: 'Báo Nhân Dân',
       },
     ],
   },
@@ -323,21 +303,13 @@ export const regions: Region[] = [
     images: [
       {
         src: '/assets/images/regions/taynambo-toa-thanh-tay-ninh.jpg',
-        alt: 'Tòa Thánh Tây Ninh',
+        alt: 'Tòa Thánh Tây Ninh — biểu tượng đạo Cao Đài',
         source: 'Wikipedia Commons',
       },
       {
         src: '/assets/images/regions/taynambo-chua-khmer.jpg',
-        alt: 'Chùa Khmer (Chùa Dơi – Sóc Trăng)',
+        alt: 'Chùa Khmer Nam tông',
         source: 'Vietnamtourism',
-      },
-      {
-        src: '/assets/images/regions/taynambo-ok-om-bok.jpg',
-        alt: 'Lễ Ok Om Bok của người Khmer',
-      },
-      {
-        src: '/assets/images/regions/taynambo-thanh-duong-mubarak.jpg',
-        alt: 'Thánh đường Hồi giáo Mubarak (Châu Đốc)',
       },
     ],
   },
@@ -410,21 +382,13 @@ export const regions: Region[] = [
     ],
     images: [
       {
-        src: '/assets/images/regions/namtrungbo-po-klong-garai.jpg',
-        alt: 'Tháp Po Klong Garai (Ninh Thuận)',
+        src: '/assets/images/regions/namtrungbo-thap-po-klong-garai.jpg',
+        alt: 'Tháp Po Klong Garai (Ninh Thuận) — di sản Champa thế kỷ XIII',
       },
       {
         src: '/assets/images/regions/namtrungbo-le-hoi-kate.jpg',
-        alt: 'Lễ hội Katê',
+        alt: 'Lễ hội Katê — di sản phi vật thể quốc gia',
         source: 'Sở VHTTDL Ninh Thuận',
-      },
-      {
-        src: '/assets/images/regions/namtrungbo-gom-bau-truc.jpg',
-        alt: 'Nghệ nhân gốm Bàu Trúc',
-      },
-      {
-        src: '/assets/images/regions/namtrungbo-trang-phuc-cham.jpg',
-        alt: 'Trang phục truyền thống Chăm',
       },
     ],
   },
