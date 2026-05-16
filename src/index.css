@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-red: #da251d;
+  --color-brand-yellow: #ffcd00;
+  --color-brand-navy: #0f4c75;
+
+  --color-bg-cream: #f8f5f0;
+  --color-bg-dark: #0a0e1a;
+  --color-bg-paper: #ffffff;
+
+  --color-region-taybac: #e63946;
+  --color-region-taynguyen: #f4a261;
+  --color-region-taynambo: #2a9d8f;
+  --color-region-namtrungbo: #264653;
+
+  --font-display:
+    'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:
+    'Inter', 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-red);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

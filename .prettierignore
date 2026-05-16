@@ -1,0 +1,4 @@
+dist
+node_modules
+public/assets/models/*.geo.json
+package-lock.json
