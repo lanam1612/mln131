@@ -3,6 +3,7 @@ import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { TheoryFoundation } from '@/components/sections/TheoryFoundation'
+import { TimelineHistory } from '@/components/sections/TimelineHistory'
 
 const InteractiveMap = lazy(() =>
   import('@/components/sections/InteractiveMap').then((m) => ({
@@ -11,12 +12,6 @@ const InteractiveMap = lazy(() =>
 )
 
 const PLACEHOLDER_SECTIONS = [
-  {
-    id: 'timeline',
-    phase: 5,
-    title: 'Timeline 6 thời kỳ',
-    hint: 'Tiền sử → Đổi mới với scroll-triggered animation.',
-  },
   {
     id: 'cases',
     phase: 6,
@@ -41,6 +36,7 @@ function App() {
         <Suspense fallback={<MapSectionSkeleton />}>
           <InteractiveMap />
         </Suspense>
+        <TimelineHistory />
         {PLACEHOLDER_SECTIONS.map((section) => (
           <section
             key={section.id}
