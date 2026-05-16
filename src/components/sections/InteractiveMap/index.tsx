@@ -25,7 +25,7 @@ export function InteractiveMap() {
       id="map"
       className="relative border-t border-neutral-200/70 px-6 py-24 md:py-32"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <SectionHeader onCompare={() => setComparisonOpen(true)} />
 
         <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-gradient-to-b from-bg-cream to-white shadow-sm">
@@ -48,7 +48,7 @@ export function InteractiveMap() {
             ))}
           </div>
 
-          <div className="h-[70vh] min-h-[480px] md:h-[80vh]">
+          <div className="h-[80vh] min-h-[600px] md:h-[88vh] md:min-h-[720px]">
             <MapStage
               status={mapResource.status}
               error={mapResource.error}

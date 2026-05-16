@@ -37,7 +37,10 @@ export function VietnamMap3D({
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 7, 8.5], fov: 38 }}
+      // Camera offset east so both the mainland and Trường Sa / Hoàng Sa
+      // archipelagos (which extend to ~x=8 in world units) stay inside the
+      // frame at default zoom.
+      camera={{ position: [2, 11, 13], fov: 44 }}
       gl={{ antialias: true, alpha: true }}
       dpr={[1, 2]}
       style={{ background: 'transparent' }}
@@ -45,7 +48,7 @@ export function VietnamMap3D({
       <ambientLight intensity={0.55} />
       <hemisphereLight args={['#FDF6EC', '#0F4C75', 0.35]} />
       <directionalLight
-        position={[6, 10, 5]}
+        position={[6, 12, 5]}
         intensity={1.05}
         castShadow
         shadow-mapSize-width={1024}
@@ -54,7 +57,8 @@ export function VietnamMap3D({
       <directionalLight position={[-6, 4, -4]} intensity={0.25} />
 
       <Suspense fallback={null}>
-        <CountryMesh geometry={map.geometry} />
+        <MainlandMesh geometry={map.mainland} />
+        {map.islands && <IslandsMesh geometry={map.islands} />}
         {hotspots.map(({ region, position }) => (
           <RegionHotspot
             key={region.id}
@@ -71,7 +75,7 @@ export function VietnamMap3D({
           position={[0, -0.001, 0]}
           receiveShadow
         >
-          <planeGeometry args={[20, 22]} />
+          <planeGeometry args={[28, 30]} />
           <shadowMaterial opacity={0.18} />
         </mesh>
       </Suspense>
@@ -83,15 +87,15 @@ export function VietnamMap3D({
         autoRotateSpeed={0.4}
         minPolarAngle={Math.PI / 5}
         maxPolarAngle={Math.PI / 2.4}
-        minDistance={6}
-        maxDistance={14}
-        target={[0, 0, 0]}
+        minDistance={9}
+        maxDistance={24}
+        target={[2, 0, 0]}
       />
     </Canvas>
   )
 }
 
-function CountryMesh({ geometry }: { geometry: THREE.ExtrudeGeometry }) {
+function MainlandMesh({ geometry }: { geometry: THREE.ExtrudeGeometry }) {
   return (
     <mesh geometry={geometry} castShadow receiveShadow>
       <meshStandardMaterial
@@ -101,6 +105,24 @@ function CountryMesh({ geometry }: { geometry: THREE.ExtrudeGeometry }) {
         side={THREE.DoubleSide}
       />
       <Edges color="#DA251D" threshold={20} lineWidth={1} />
+    </mesh>
+  )
+}
+
+function IslandsMesh({ geometry }: { geometry: THREE.ExtrudeGeometry }) {
+  // Trường Sa & Hoàng Sa archipelagos — tinted warm so they stand out against
+  // the cream mainland while still reading as Vietnamese territory.
+  return (
+    <mesh geometry={geometry} castShadow receiveShadow>
+      <meshStandardMaterial
+        color="#E9B949"
+        emissive="#DA251D"
+        emissiveIntensity={0.12}
+        roughness={0.6}
+        metalness={0.1}
+        side={THREE.DoubleSide}
+      />
+      <Edges color="#DA251D" threshold={15} lineWidth={1} />
     </mesh>
   )
 }

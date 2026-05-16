@@ -321,7 +321,7 @@ export const regions: Region[] = [
     id: 'namtrungbo',
     name: 'Duyên hải Nam Trung Bộ',
     scope: 'Ninh Thuận, Bình Thuận (vùng tập trung người Chăm)',
-    coordinates: [108.5, 11.5],
+    coordinates: [109.1, 13.4],
     color: '#264653',
     overview:
       'Vùng đất từng là trung tâm Vương quốc Champa cổ (thế kỷ II–XV). Đây là nơi lưu giữ di sản văn hóa Chăm đặc sắc nhất Việt Nam – với hệ thống tháp Chăm, lễ hội Katê (di sản phi vật thể quốc gia), nghề dệt thổ cẩm Mỹ Nghiệp, gốm Bàu Trúc.',

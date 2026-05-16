@@ -9,14 +9,19 @@ import type {
 
 // =============================================================================
 // GeoJSON → Three.js helpers for the Vietnam interactive map.
-// Produces a flat-on-XZ extruded country mesh with consistent (lng, lat) → world
-// projection so hotspots align with the geometry.
+// Produces a flat-on-XZ extruded country mesh plus a secondary mesh for the
+// Trường Sa / Hoàng Sa archipelagos (stored as closed MultiLineString rings
+// in the source GeoJSON). One shared projection so hotspots align with the
+// geometry regardless of which feature they belong to.
 // =============================================================================
 
 export type ProjectFn = (lng: number, lat: number) => [number, number]
 
 export interface ExtrudedMap {
-  geometry: THREE.ExtrudeGeometry
+  /** Mainland + coastal islands (MultiPolygon features). */
+  mainland: THREE.ExtrudeGeometry
+  /** Trường Sa + Hoàng Sa, or null if the source has no MultiLineString features. */
+  islands: THREE.ExtrudeGeometry | null
   bounds: { width: number; height: number }
   /**
    * Project geographic coords to local (x, y) where x is east-west (positive
@@ -29,8 +34,10 @@ export interface ExtrudedMap {
 interface BuildOptions {
   /** Fit the projection into a [w, h] rectangle before centering. */
   fitSize?: [number, number]
-  /** Extrusion depth (world units) along +Y. */
+  /** Extrusion depth (world units) along +Y for the mainland mesh. */
   depth?: number
+  /** Extrusion depth for the islands mesh (defaults to depth * 0.55). */
+  islandsDepth?: number
   /** Optional bevel size; pass 0 to disable. */
   bevel?: number
 }
@@ -39,17 +46,14 @@ export function buildExtrudedMap(
   geojson: FeatureCollection,
   options: BuildOptions = {},
 ): ExtrudedMap {
-  const fitSize = options.fitSize ?? [10, 12]
+  const fitSize = options.fitSize ?? [14, 16]
   const depth = options.depth ?? 0.35
+  const islandsDepth = options.islandsDepth ?? depth * 0.55
   const bevel = options.bevel ?? 0.02
 
-  const mainland = pickMainland(geojson)
-  const mainlandFC: FeatureCollection = {
-    type: 'FeatureCollection',
-    features: [mainland],
-  }
-
-  const projection: GeoProjection = geoMercator().fitSize(fitSize, mainlandFC)
+  // Project the ENTIRE FeatureCollection so islands land in correct
+  // relative positions east of the mainland.
+  const projection: GeoProjection = geoMercator().fitSize(fitSize, geojson)
 
   // Raw projection has Y growing southward; flip so positive Y = north.
   const projectRaw: ProjectFn = (lng, lat) => {
@@ -58,7 +62,10 @@ export function buildExtrudedMap(
     return [r[0], -r[1]]
   }
 
-  // Compute bbox of projected mainland to center on origin.
+  // Center on the mainland feature so the country sits at the world origin
+  // and the islands extend to the east — matches the conventional Vietnam
+  // map layout used in textbooks.
+  const mainland = pickMainland(geojson)
   let minX = Infinity
   let maxX = -Infinity
   let minY = Infinity
@@ -78,42 +85,41 @@ export function buildExtrudedMap(
     return [x - centerX, y - centerY]
   }
 
-  // Build a Shape (with optional holes) per polygon ring.
-  const shapes: THREE.Shape[] = []
-  const collectPolygon = (polygon: Polygon) => {
-    if (polygon.coordinates.length === 0) return
-    const outer = ringToShape(polygon.coordinates[0], project)
-    if (!outer) return
-    for (let i = 1; i < polygon.coordinates.length; i++) {
-      const hole = ringToPath(polygon.coordinates[i], project)
-      if (hole) outer.holes.push(hole)
-    }
-    shapes.push(outer)
-  }
-  if (mainland.geometry.type === 'Polygon') {
-    collectPolygon(mainland.geometry)
-  } else if (mainland.geometry.type === 'MultiPolygon') {
-    for (const poly of mainland.geometry.coordinates) {
-      collectPolygon({ type: 'Polygon', coordinates: poly })
+  // Split features into mainland (polygons) vs islands (closed line rings).
+  const mainlandShapes: THREE.Shape[] = []
+  const islandShapes: THREE.Shape[] = []
+
+  for (const feature of geojson.features) {
+    const g = feature.geometry
+    if (g.type === 'Polygon') {
+      collectPolygonShape(g, mainlandShapes, project)
+    } else if (g.type === 'MultiPolygon') {
+      for (const poly of g.coordinates) {
+        collectPolygonShape(
+          { type: 'Polygon', coordinates: poly },
+          mainlandShapes,
+          project,
+        )
+      }
+    } else if (g.type === 'LineString') {
+      collectClosedLineShape(g.coordinates, islandShapes, project)
+    } else if (g.type === 'MultiLineString') {
+      for (const line of g.coordinates) {
+        collectClosedLineShape(line, islandShapes, project)
+      }
     }
   }
 
-  const geometry = new THREE.ExtrudeGeometry(shapes, {
-    depth,
-    bevelEnabled: bevel > 0,
-    bevelThickness: bevel,
-    bevelSize: bevel,
-    bevelSegments: 2,
-    curveSegments: 1,
-  })
+  const mainlandGeometry = buildExtrudeGeometry(mainlandShapes, depth, bevel)
 
-  // The shape lies in XY with extrusion along +Z. Rotate so it lies on the XZ
-  // ground plane with extrusion going up (+Y) and north pointing into -Z.
-  geometry.rotateX(-Math.PI / 2)
-  geometry.computeVertexNormals()
+  let islandsGeometry: THREE.ExtrudeGeometry | null = null
+  if (islandShapes.length > 0) {
+    islandsGeometry = buildExtrudeGeometry(islandShapes, islandsDepth, 0)
+  }
 
   return {
-    geometry,
+    mainland: mainlandGeometry,
+    islands: islandsGeometry,
     bounds: { width: maxX - minX, height: maxY - minY },
     project,
   }
@@ -122,6 +128,52 @@ export function buildExtrudedMap(
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
+
+function buildExtrudeGeometry(
+  shapes: THREE.Shape[],
+  depth: number,
+  bevel: number,
+): THREE.ExtrudeGeometry {
+  const geometry = new THREE.ExtrudeGeometry(shapes, {
+    depth,
+    bevelEnabled: bevel > 0,
+    bevelThickness: bevel,
+    bevelSize: bevel,
+    bevelSegments: 2,
+    curveSegments: 1,
+  })
+  // Lay flat on XZ ground plane: north points to -Z, extrusion up (+Y).
+  geometry.rotateX(-Math.PI / 2)
+  geometry.computeVertexNormals()
+  return geometry
+}
+
+function collectPolygonShape(
+  polygon: Polygon,
+  out: THREE.Shape[],
+  project: ProjectFn,
+) {
+  if (polygon.coordinates.length === 0) return
+  const outer = ringToShape(polygon.coordinates[0], project)
+  if (!outer) return
+  for (let i = 1; i < polygon.coordinates.length; i++) {
+    const hole = ringToPath(polygon.coordinates[i], project)
+    if (hole) outer.holes.push(hole)
+  }
+  out.push(outer)
+}
+
+function collectClosedLineShape(
+  line: Position[],
+  out: THREE.Shape[],
+  project: ProjectFn,
+) {
+  // The Vietnam GeoJSON stores islands (Trường Sa / Hoàng Sa) as closed line
+  // rings. Treat each closed ring as a polygon outline so it extrudes into a
+  // visible landmass on the 3D map.
+  const shape = ringToShape(line, project)
+  if (shape) out.push(shape)
+}
 
 function pickMainland(geojson: FeatureCollection): Feature {
   for (const f of geojson.features) {
@@ -135,10 +187,12 @@ function pickMainland(geojson: FeatureCollection): Feature {
       return f
     }
   }
-  // Fallback: largest by rough bbox area.
+  // Fallback: largest polygon feature by rough bbox area.
   let best = geojson.features[0]
   let bestArea = 0
   for (const f of geojson.features) {
+    if (f.geometry.type !== 'Polygon' && f.geometry.type !== 'MultiPolygon')
+      continue
     const area = roughBboxArea(f)
     if (area > bestArea) {
       bestArea = area

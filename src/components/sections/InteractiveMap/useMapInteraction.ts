@@ -34,8 +34,9 @@ export function useVietnamMap(): MapResource {
         if (cancelled) return
         try {
           mapInstance = buildExtrudedMap(geojson, {
-            fitSize: [10, 14],
+            fitSize: [14, 16],
             depth: 0.35,
+            islandsDepth: 0.18,
             bevel: 0.015,
           })
           setState({ status: 'ready', data: mapInstance, error: null })
@@ -61,7 +62,8 @@ export function useVietnamMap(): MapResource {
 
     return () => {
       cancelled = true
-      mapInstance?.geometry.dispose()
+      mapInstance?.mainland.dispose()
+      mapInstance?.islands?.dispose()
     }
   }, [])
 
