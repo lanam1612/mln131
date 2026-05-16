@@ -167,7 +167,7 @@ function SectionHeader({ onCompare }: { onCompare: () => void }) {
     <div className="mb-10 flex flex-col gap-4 md:mb-14 md:flex-row md:items-end md:justify-between">
       <div>
         <div className="mb-3 inline-block rounded-full bg-brand-red/10 px-3 py-1 font-mono text-xs font-medium tracking-wide text-brand-red uppercase">
-          Section 3 · Bản đồ tương tác
+          Phần IV · Bản đồ tương tác
         </div>
         <h2 className="font-display mb-3 text-3xl leading-tight font-bold tracking-tight text-neutral-900 md:text-5xl">
           4 vùng đất chiến lược

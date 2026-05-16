@@ -3,33 +3,6 @@ interface SourceLink {
   href: string
 }
 
-const SOURCES: SourceLink[] = [
-  {
-    label: 'Giáo trình CN Mác-Lênin (Bộ GDĐT, 2021)',
-    href: 'https://moet.gov.vn/',
-  },
-  {
-    label: 'Luật Tín ngưỡng, Tôn giáo 2016',
-    href: 'https://thuvienphapluat.vn/van-ban/Van-hoa-Xa-hoi/Luat-tin-nguong-ton-giao-2016-322934.aspx',
-  },
-  {
-    label: 'Văn kiện Đại hội Đảng XIII',
-    href: 'https://tulieuvankien.dangcongsan.vn/',
-  },
-  {
-    label: 'Báo Nhân Dân — Chuyên đề dân tộc tôn giáo',
-    href: 'https://nhandan.vn/dan-toc-ton-giao',
-  },
-  {
-    label: 'Tạp chí Cộng sản',
-    href: 'https://tapchicongsan.org.vn/',
-  },
-  {
-    label: 'Ban Tôn giáo Chính phủ',
-    href: 'https://btgcp.gov.vn/',
-  },
-]
-
 const TEAM = [
   { role: 'Thực hiện', name: 'Nhóm 5 — Lớp MLN131' },
   { role: 'Giảng viên hướng dẫn', name: 'Thầy/Cô bộ môn CNXHKH' },
@@ -55,39 +28,10 @@ export function Footer() {
               <span className="text-neutral-200">
                 Chủ nghĩa Xã hội Khoa học
               </span>{' '}
-              — Chương 6: Vấn đề Dân tộc và Tôn giáo. Trình bày 54 dân tộc, 16
-              tôn giáo qua bản đồ 3D, timeline 6 thời kỳ và quiz 15 câu.
+              — Chương 6: Vấn đề Dân tộc và Tôn giáo trong Thời kỳ Quá độ lên
+              Chủ nghĩa Xã hội. Trình bày 54 dân tộc, 16 tôn giáo qua bản đồ
+              3D, timeline 6 thời kỳ và quiz 15 câu.
             </p>
-            <p className="text-xs text-neutral-500">
-              Tất cả nội dung học thuật được trích từ giáo trình chính thống và
-              Văn kiện Đảng. Không nội dung nào được AI sáng tác mới.
-            </p>
-          </section>
-
-          <section aria-labelledby="footer-sources">
-            <h2
-              id="footer-sources"
-              className="mb-3 font-mono text-xs font-semibold tracking-wider text-brand-yellow uppercase"
-            >
-              Nguồn tài liệu
-            </h2>
-            <ul className="space-y-2 text-sm">
-              {SOURCES.map((s) => (
-                <li key={s.href}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-baseline gap-1 text-neutral-300 underline-offset-4 transition-colors hover:text-brand-yellow hover:underline"
-                  >
-                    {s.label}
-                    <span aria-hidden className="text-xs text-neutral-500">
-                      ↗
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
           </section>
 
           <section aria-labelledby="footer-team">
@@ -109,9 +53,6 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-neutral-500">
-              Liên hệ qua giảng viên phụ trách lớp để góp ý nội dung.
-            </p>
           </section>
         </div>
 

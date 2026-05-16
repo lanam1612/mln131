@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
   { id: 'hero', label: 'Mở đầu' },
-  { id: 'theory', label: 'Lý luận' },
+  { id: 'theory', label: 'Dân tộc' },
+  { id: 'theology', label: 'Tôn giáo' },
+  { id: 'relations', label: 'Quan hệ DT–TG' },
   { id: 'map', label: 'Bản đồ 4 vùng' },
   { id: 'timeline', label: 'Lịch sử' },
   { id: 'cases', label: 'Cảnh giác' },
@@ -18,6 +20,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const active = useActiveSection(SECTION_IDS as unknown as string[])
+  const drawerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -27,11 +30,50 @@ export function Navigation() {
   }, [])
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden'
-      return () => {
-        document.body.style.overflow = ''
+    if (!mobileOpen) return
+    const previousActive = document.activeElement as HTMLElement | null
+    document.body.style.overflow = 'hidden'
+
+    const focusFirst = () => {
+      const focusables = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])',
+      )
+      focusables?.[0]?.focus()
+    }
+    // Defer one frame so the drawer is in the DOM before focusing.
+    const raf = requestAnimationFrame(focusFirst)
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        setMobileOpen(false)
+        return
       }
+      if (e.key !== 'Tab' || !drawerRef.current) return
+      const nodes = Array.from(
+        drawerRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled])',
+        ),
+      ).filter((el) => !el.hasAttribute('aria-hidden'))
+      if (nodes.length === 0) return
+      const first = nodes[0]
+      const last = nodes[nodes.length - 1]
+      const activeEl = document.activeElement as HTMLElement | null
+      if (e.shiftKey && activeEl === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && activeEl === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+      previousActive?.focus?.()
     }
   }, [mobileOpen])
 
@@ -122,12 +164,14 @@ export function Navigation() {
             />
             <motion.div
               key="drawer"
+              ref={drawerRef}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="fixed inset-y-0 right-0 z-50 w-72 max-w-[85vw] bg-bg-cream shadow-xl md:hidden"
               role="dialog"
+              aria-modal="true"
               aria-label="Menu di động"
             >
               <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">

@@ -75,7 +75,7 @@ export function TimelineHistory() {
         <header className="mb-12 md:mb-16 md:flex md:items-end md:justify-between md:gap-10">
           <div>
             <div className="mb-3 inline-block rounded-full bg-brand-red/10 px-3 py-1 font-mono text-xs font-medium tracking-wide text-brand-red uppercase">
-              Section 4 · Hành trình lịch sử
+              Phần V · Hành trình lịch sử
             </div>
             <h2 className="font-display mb-3 text-3xl leading-tight font-bold tracking-tight text-neutral-900 md:text-5xl">
               6 thời kỳ định hình Việt Nam

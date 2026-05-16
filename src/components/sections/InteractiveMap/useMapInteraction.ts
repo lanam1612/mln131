@@ -62,8 +62,11 @@ export function useVietnamMap(): MapResource {
 
     return () => {
       cancelled = true
-      mapInstance?.mainland.dispose()
-      mapInstance?.islands?.dispose()
+      if (mapInstance) {
+        mapInstance.mainland.dispose()
+        mapInstance.islands?.dispose()
+        mapInstance = null
+      }
     }
   }, [])
 

@@ -101,6 +101,6 @@ export function verdictFor(scored: number, total: number): ScoreVerdict {
     label: 'Cần ôn lại',
     tone: 'low',
     blurb:
-      'Đừng nản — quay lại Section 2 (lý luận) và Section 5 (case study) rồi thử lại.',
+      'Đừng nản — quay lại phần lý luận (Phần I–III) và Phần VI (case study) rồi thử lại.',
   }
 }

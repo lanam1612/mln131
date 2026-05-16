@@ -69,7 +69,7 @@ export function HeroSection() {
             className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-red/20 bg-brand-red/5 px-3 py-1 font-mono text-xs tracking-wide text-brand-red uppercase"
           >
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-red" />
-            Chương 6 · CNXHKH
+            Chương 6 · CNXHKH · Thời kỳ Quá độ lên CNXH
           </motion.div>
 
           <motion.h1
@@ -86,6 +86,19 @@ export function HeroSection() {
             <span className="text-brand-red">Dân tộc &amp; Tôn giáo</span>{' '}
             Việt Nam
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.1,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="font-display mb-4 text-base font-medium text-brand-navy/80 md:text-lg"
+          >
+            Vấn đề Dân tộc và Tôn giáo trong Thời kỳ Quá độ lên Chủ nghĩa Xã hội
+          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -175,7 +188,7 @@ export function HeroSection() {
         >
           <VietnamTeaserMap reduced={reduced ?? false} />
           <div className="mt-3 text-center font-mono text-[11px] tracking-wider text-neutral-500 uppercase">
-            4 vùng trọng điểm · Click bản đồ ở Section 3 để khám phá
+            4 vùng trọng điểm · Click bản đồ ở Phần IV để khám phá
           </div>
         </motion.div>
       </div>

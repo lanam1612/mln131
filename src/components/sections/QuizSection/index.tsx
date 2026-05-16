@@ -82,7 +82,7 @@ export function QuizSection() {
       <div className="mx-auto max-w-3xl">
         <header className="mb-10 md:mb-12">
           <div className="mb-3 inline-block rounded-full bg-brand-red/10 px-3 py-1 font-mono text-xs font-medium tracking-wide text-brand-red uppercase">
-            Section 6 · Trắc nghiệm
+            Phần VII · Trắc nghiệm
           </div>
           <h2 className="font-display mb-3 text-3xl leading-tight font-bold tracking-tight text-neutral-900 md:text-5xl">
             Quiz 15 câu — ôn nhanh chương 6

@@ -86,8 +86,7 @@ export function Tabs({
                 : 'text-neutral-500 hover:text-neutral-900',
             )}
           >
-            <span className="md:hidden">{tab.shortLabel ?? tab.label}</span>
-            <span className="hidden md:inline">{tab.label}</span>
+            {tab.shortLabel ?? tab.label}
             {isActive && (
               <motion.span
                 layoutId={indicatorId}

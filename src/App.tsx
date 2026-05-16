@@ -3,6 +3,8 @@ import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { TheoryFoundation } from '@/components/sections/TheoryFoundation'
+import { TheologyFoundation } from '@/components/sections/TheologyFoundation'
+import { RelationsSection } from '@/components/sections/RelationsSection'
 import { TimelineHistory } from '@/components/sections/TimelineHistory'
 import { CaseStudies } from '@/components/sections/CaseStudies'
 import { QuizSection } from '@/components/sections/QuizSection'
@@ -20,6 +22,8 @@ function App() {
       <main id="main" tabIndex={-1}>
         <HeroSection />
         <TheoryFoundation />
+        <TheologyFoundation />
+        <RelationsSection />
         <Suspense fallback={<MapSectionSkeleton />}>
           <InteractiveMap />
         </Suspense>

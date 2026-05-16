@@ -196,57 +196,107 @@ export const theoryTabs: TheoryTab[] = [
   },
 
   // ---------------------------------------------------------------------------
-  // TAB 4 — NGUYÊN TẮC GIẢI QUYẾT VẤN ĐỀ TÔN GIÁO
+  // TAB 4 — ĐẶC ĐIỂM DÂN TỘC VIỆT NAM (6 đặc điểm)
   // ---------------------------------------------------------------------------
   {
-    id: 'nguyen-tac-ton-giao',
-    title: 'Nguyên tắc giải quyết vấn đề tôn giáo',
-    shortTitle: 'Nguyên tắc tôn giáo',
+    id: 'dac-diem-dan-toc-vn',
+    title: 'Đặc điểm dân tộc Việt Nam',
+    shortTitle: 'VN — 6 đặc điểm',
     content: [
       {
         type: 'highlight',
-        variant: 'warning',
-        text: 'Lưu ý quan trọng: Chủ nghĩa Mác-Lênin và chủ nghĩa xã hội KHÔNG có mục tiêu "tiêu diệt tôn giáo" — đây là xuyên tạc của các thế lực phản động. 4 nguyên tắc sau thể hiện bản chất NHÂN VĂN của chủ nghĩa xã hội.',
+        variant: 'info',
+        text: 'Việt Nam là quốc gia đa dân tộc với 54 dân tộc anh em. Dân tộc Việt Nam có 6 đặc điểm cơ bản.',
       },
       {
-        type: 'heading',
-        level: 2,
-        text: 'Nguyên tắc 1: Tôn trọng quyền tự do tín ngưỡng',
+        type: 'table',
+        headers: ['#', 'Đặc điểm', 'Diễn giải'],
+        rows: [
+          [
+            '1',
+            'Chênh lệch lớn về số dân',
+            'Dân tộc Kinh ~85,3% dân số; một số tộc người chỉ vài trăm – vài nghìn người (Brâu, Ơ Đu, Rơ Măm…).',
+          ],
+          [
+            '2',
+            'Cư trú xen kẽ',
+            'Không có lãnh thổ riêng cho từng tộc người; các dân tộc cư trú xen kẽ là chủ yếu.',
+          ],
+          [
+            '3',
+            'Cư trú ở địa bàn chiến lược',
+            'Các dân tộc thiểu số phân bố chủ yếu ở vùng núi, biên giới — vị trí trọng yếu về kinh tế, chính trị, an ninh quốc phòng.',
+          ],
+          [
+            '4',
+            'Trình độ phát triển không đồng đều',
+            'Khoảng cách về kinh tế, giáo dục, y tế giữa miền xuôi và miền núi, giữa các tộc người còn lớn.',
+          ],
+          [
+            '5',
+            'Truyền thống đoàn kết gắn bó lâu đời',
+            'Hình thành trong quá trình dựng nước và giữ nước — đặc trưng riêng của cộng đồng dân tộc Việt Nam thống nhất.',
+          ],
+          [
+            '6',
+            'Mỗi dân tộc có bản sắc riêng',
+            'Tạo nên nền văn hóa Việt Nam "đa dạng trong thống nhất".',
+          ],
+        ],
       },
-      {
-        type: 'paragraph',
-        text: 'Tôn trọng và bảo đảm quyền tự do tín ngưỡng VÀ không tín ngưỡng của nhân dân (với tôn giáo chân chính, hợp pháp).',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        text: 'Nguyên tắc 2: Khắc phục dần ảnh hưởng tiêu cực',
-      },
-      {
-        type: 'paragraph',
-        text: 'Khắc phục thông qua quá trình cải tạo xã hội cũ, xây dựng xã hội mới – tức xây dựng "thiên đường trên mặt đất" (chủ nghĩa xã hội) thì con người sẽ không cần đi tìm thiên đường ở thế giới hư ảo.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        text: 'Nguyên tắc 3: Phân biệt 2 mặt của tôn giáo',
-      },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  // TAB 5 — QUAN ĐIỂM & CHÍNH SÁCH DÂN TỘC CỦA ĐẢNG VÀ NHÀ NƯỚC
+  // ---------------------------------------------------------------------------
+  {
+    id: 'chinh-sach-dan-toc',
+    title: 'Quan điểm và chính sách dân tộc của Đảng và Nhà nước',
+    shortTitle: 'Chính sách',
+    content: [
+      { type: 'heading', level: 2, text: 'Quan điểm của Đảng' },
       {
         type: 'list',
-        ordered: false,
+        ordered: true,
         items: [
-          'Mặt tư tưởng: nhu cầu tín ngưỡng hợp pháp → tôn trọng.',
-          'Mặt chính trị: sự lợi dụng của thế lực phản động → kiên quyết đấu tranh.',
+          'Vấn đề dân tộc và đoàn kết dân tộc là vấn đề chiến lược cơ bản, lâu dài, đồng thời là vấn đề cấp bách.',
+          'Các dân tộc bình đẳng, đoàn kết, tương trợ, giúp nhau cùng phát triển.',
+          'Phát triển toàn diện: chính trị – kinh tế – văn hóa – xã hội – quốc phòng an ninh.',
+          'Công tác dân tộc là nhiệm vụ của toàn Đảng, toàn dân, toàn quân, cả hệ thống chính trị.',
+          'Phát huy sức mạnh đại đoàn kết dân tộc trong cộng đồng quốc gia dân tộc thống nhất.',
         ],
       },
       {
         type: 'heading',
         level: 2,
-        text: 'Nguyên tắc 4: Quan điểm lịch sử – cụ thể',
+        text: 'Chính sách thể hiện trên 5 lĩnh vực',
       },
       {
-        type: 'paragraph',
-        text: 'Mỗi tôn giáo có hoàn cảnh ra đời, vai trò khác nhau ở mỗi thời kỳ → không áp dụng máy móc, cứng nhắc.',
+        type: 'table',
+        headers: ['Lĩnh vực', 'Nội dung trọng tâm'],
+        rows: [
+          [
+            'Chính trị',
+            'Bình đẳng giữa các dân tộc; bảo đảm địa vị chính trị và quyền tham gia quản lý nhà nước của các dân tộc thiểu số.',
+          ],
+          [
+            'Kinh tế',
+            'Đầu tư phát triển vùng đồng bào dân tộc thiểu số (Chương trình 135, 134, Nông thôn mới, Chương trình Mục tiêu Quốc gia 1719…).',
+          ],
+          [
+            'Văn hóa',
+            'Bảo tồn và phát huy bản sắc văn hóa truyền thống; tôn trọng văn hóa các dân tộc thiểu số.',
+          ],
+          [
+            'Xã hội',
+            'Phát triển giáo dục, y tế, đào tạo cán bộ người dân tộc thiểu số; thực hiện chính sách bảo trợ xã hội.',
+          ],
+          [
+            'Quốc phòng – An ninh',
+            'Bảo đảm an ninh chính trị, trật tự an toàn xã hội ở vùng đồng bào dân tộc thiểu số; xây dựng thế trận quốc phòng toàn dân.',
+          ],
+        ],
       },
     ],
   },

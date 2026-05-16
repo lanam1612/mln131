@@ -38,7 +38,7 @@ export function CaseStudies() {
         <header className="mb-10 max-w-3xl md:mb-14">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 font-mono text-xs font-medium tracking-wide text-amber-800 uppercase">
             <WarningIcon />
-            Section 5 · Cảnh giác diễn biến hòa bình
+            Phần VI · Cảnh giác diễn biến hòa bình
           </div>
           <h2 className="font-display mb-3 text-3xl leading-tight font-bold tracking-tight text-neutral-900 md:text-5xl">
             4 case study âm mưu chia rẽ

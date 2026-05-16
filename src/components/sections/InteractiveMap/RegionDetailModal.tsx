@@ -27,8 +27,15 @@ export function RegionDetailModal({
   onCompare,
 }: RegionDetailModalProps) {
   const [activeTab, setActiveTab] = useState<string>('overview')
+  const [prevRegionId, setPrevRegionId] = useState<string | undefined>(
+    region?.id,
+  )
+  // Reset tab when switching regions — React-recommended render-time reset.
+  if (region?.id !== prevRegionId) {
+    setPrevRegionId(region?.id)
+    setActiveTab('overview')
+  }
 
-  // Reset tab when switching regions.
   const titleAdornment = useMemo(() => {
     if (!region) return null
     return (
