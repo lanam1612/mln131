@@ -1,8 +1,3 @@
-interface SourceLink {
-  label: string
-  href: string
-}
-
 const TEAM = [
   { role: 'Thực hiện', name: 'Nhóm 5 — Lớp MLN131' },
   { role: 'Giảng viên hướng dẫn', name: 'Thầy/Cô bộ môn CNXHKH' },
